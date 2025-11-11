@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  server:
+    build: ./server
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./server/users.json:/app/users.json
+      - ./server/tasks.json:/app/tasks.json
+    environment:
+      - JWT_SECRET=change_this_secret_in_prod
+  client:
+    build: ./client
+    ports:
+      - '5173:80'
+    depends_on:
+      - server
